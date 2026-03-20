@@ -1,0 +1,6 @@
+export const LEVELS = {
+  UNCLASSIFIED: 0,
+  CONFIDENTIAL: 1,
+  SECRET: 2,
+  TOP_SECRET: 3
+};
