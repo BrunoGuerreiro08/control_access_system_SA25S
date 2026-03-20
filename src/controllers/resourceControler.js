@@ -33,14 +33,14 @@ export const createResource = async (req, res, next) => {
 
     if (req.user.clearanceLevel < LEVELS.SECRET) {
       logger.warn({ userId: req.user.id, username: req.user.username, userClearance: req.user.clearanceLevel }, 'Unauthorized resource creation attempt: insufficient clearance')
-      return res.render('createResource', {
+      return res.render('newResource', {
         error: 'Access denied: only users with SECRET clearance or above can create resources.',
         levels: LEVELS
       })
     }
 
     if (!content || classificationLevel === undefined) {
-      return res.render('createResource', { error: 'All fields are required.', levels: LEVELS })
+      return res.render('newResource', { error: 'All fields are required.', levels: LEVELS })
     }
 
     const requestedLevel = parseInt(classificationLevel)
