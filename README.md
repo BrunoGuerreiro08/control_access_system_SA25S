@@ -1,6 +1,7 @@
 # 🔐 Sistema de Controle de Acesso
 
 > Implementação do modelo Bell-LaPadula com autenticação JWT, hashing de senhas e auditoria de logs.
+> Repositório: https://github.com/BrunoGuerreiro08/control_access_system_SA25S
 
 ---
 
