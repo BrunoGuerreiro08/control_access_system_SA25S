@@ -13,7 +13,9 @@ Este projeto implementa um sistema de controle de acesso obrigatório baseado no
 
 ## ✅ Funcionalidades
 
-- Autenticação de usuários com sessão via JWT
+- Autenticação de usuários com sessão persistente via cookies (HttpOnly, SameSite, Secure em produção)
+- Login local com username/password via Passport.js (LocalStrategy)
+- Login social via Google OAuth 2.0 (Passport.js GoogleStrategy)
 - Senhas armazenadas com hash bcrypt (salt rounds: 10)
 - Registo de novos utilizadores com nível de clearance
 - Controle de acesso baseado no modelo Bell-LaPadula
@@ -32,11 +34,11 @@ Este projeto implementa um sistema de controle de acesso obrigatório baseado no
 |---|---|
 | Node.js + Express 5 | Servidor web |
 | Prisma ORM v5 + SQLite | Base de dados |
-| JSON Web Token (JWT) | Autenticação |
+| Passport.js | Autenticação (LocalStrategy + GoogleStrategy) |
+| express-session + connect-sqlite3 | Gestão e persistência de sessões |
 | bcrypt | Hash de senhas |
 | EJS | Template engine |
 | pino | Logging estruturado |
-
 ---
 
 ## 📦 Pré-requisitos
@@ -96,7 +98,7 @@ src/
   controllers/    # Lógica dos endpoints
   middlewares/    # Autenticação JWT e Bell-LaPadula
   routes/         # Definição das rotas
-  lib/            # Instância do Prisma e logger
+  lib/            # Instância do Prisma, passport e logger
   policies/       # Regras de controle de acesso
   utils/          # Níveis de segurança
 prisma/
