@@ -9,7 +9,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #f5f5f5;
     }
     .dashboard-box {
@@ -21,6 +21,13 @@
     .error {
       background-color: #f8d7da;
       color: #842029;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .warning {
+      background-color: #fff3cd;
+      color: #856404;
       padding: 10px;
       border-radius: 4px;
       margin-bottom: 10px;
@@ -41,44 +48,23 @@
       background-color: #f8d7da;
       cursor: not-allowed;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-      cursor: inherit;
-    }
-    .logout {
+    a { text-decoration: none; color: inherit; cursor: inherit; }
+    .btn {
       display: block;
       width: 100%;
       padding: 10px;
-      margin-top: 15px;
-      background-color: #d9534f;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .logout:hover { background-color: #c9302c; }
-
-    .create-btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      background-color: #0d6efd;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .create-btn:hover { background-color: #0b5ed7; }
-
-    .warning {
-      background-color: #fff3cd;
-      color: #856404;
-      padding: 10px;
-      border-radius: 4px;
       margin-bottom: 10px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
     }
+    .btn-blue  { background-color: #0d6efd; }
+    .btn-blue:hover  { background-color: #0b5ed7; }
+    .btn-gray  { background-color: #6c757d; }
+    .btn-gray:hover  { background-color: #5c636a; }
+    .btn-red   { background-color: #d9534f; }
+    .btn-red:hover   { background-color: #c9302c; }
   </style>
 </head>
 <body>
@@ -97,17 +83,16 @@
     <h3>Resources</h3>
     <% resources.forEach(r => { %>
       <div class="resource-item <%= r.accessible ? 'accessible' : 'locked' %>">
-        <% if (r.accessible) { %>
-          <a href="/resource/<%= r.id %>"><%= r.content %></a>
-        <% } else { %>
-          <a href="/resource/<%= r.id %>"><%= r.content %></a>
-        <% } %>
+        <a href="/resource/<%= r.id %>"><%= r.content %></a>
         <small>Level <%= r.classificationLevel %></small>
       </div>
     <% }) %>
 
-    <a class="create-btn" href="/resource/create">+ New Resource</a>
-    <a class="logout" href="/logout">Logout</a>
+    <a class="btn btn-blue" href="/resource/create">+ New Resource</a>
+    <% if (user.clearanceLevel >= 3) { %>
+      <a class="btn btn-gray" href="/users">Manage Users</a>
+    <% } %>
+    <a class="btn btn-red" href="/logout">Logout</a>
   </div>
 </body>
 </html>

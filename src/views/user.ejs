@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+    }
+    .dashboard-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+    }
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    .search-row input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .search-row button {
+      padding: 8px 14px;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .search-row button:hover { background-color: #0b5ed7; }
+    .user-item {
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      background-color: #d1e7dd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .user-item span { font-size: 14px; color: #333; }
+    .badge {
+      padding: 2px 8px;
+      border-radius: 12px;
+      background-color: #0d6efd;
+      color: #fff !important;
+    }
+    .empty {
+      color: #6c757d;
+      font-size: 14px;
+      text-align: center;
+      padding: 20px 0;
+    }
+    a.btn-back {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background-color: #6c757d;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    a.btn-back:hover { background-color: #5c636a; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-box">
+    <h2>User List</h2>
+    <p><strong>Username:</strong> <%= user.username %></p>
+    <p><strong>Clearance Level:</strong> <%= user.clearanceLevel %></p>
+
+    <form method="GET" action="/users" class="search-row">
+      <input
+        type="text"
+        name="username"
+        value="<%= filter %>"
+        placeholder="Search by username"
+        autocomplete="off"
+      />
+      <button type="submit">Search</button>
+    </form>
+
+    <% if (users.length === 0) { %>
+      <p class="empty">No users found.</p>
+    <% } else { %>
+      <% users.forEach(u => { %>
+        <div class="user-item">
+          <span><%= u.username %></span>
+          <span class="badge">Level <%= u.clearanceLevel %></span>
+        </div>
+      <% }) %>
+    <% } %>
+
+    <a class="btn-back" href="/dashboard">← Back to Dashboard</a>
+  </div>
+</body>
+</html>

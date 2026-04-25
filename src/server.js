@@ -1,3 +1,4 @@
+import "./lib/env.js"; // Must be imported first so any env vars in the initialization are loaded
 import express from "express";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -12,8 +13,7 @@ import dashboardRouter from "./routes/dashboardRouter.js";
 import resourceRouter from "./routes/resourceRouter.js";
 import registerRouter from "./routes/registerRouter.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
-
-dotenv.config();
+import userRouter from "./routes/userRouter.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,6 +60,7 @@ app.use("/", googleLoginRouter);
 app.use("/", registerRouter);
 app.use("/", authMiddleware, dashboardRouter);
 app.use("/", authMiddleware, resourceRouter);
+app.use("/", authMiddleware, userRouter);
 
 app.listen(port, () => {
 	console.log(`Server running on port http://localhost:${port}/`);
