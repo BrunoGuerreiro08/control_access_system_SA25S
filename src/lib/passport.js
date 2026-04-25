@@ -1,6 +1,9 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as LocalStrategy } from "passport-local";
 import prisma from "./prisma.js";
+import bcrypt from "bcrypt";
+import logger from "./logger.js";
 import { LEVELS } from "../utils/securityLevels.js";
 
 // Local strategy for local login

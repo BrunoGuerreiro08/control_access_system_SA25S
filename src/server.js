@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import path from "path";
 import ConnectSQLite from "connect-sqlite3";
@@ -23,14 +22,15 @@ const SQLiteStore = ConnectSQLite(session);
 const app = express();
 const port = process.env.PORT ? process.env.PORT : 3000;
 // Idk about those
-// const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === "production";
 
 // app.set('trust proxy', 1) // only if behind a reverse proxy (nginx, etc.)
 
 app.use(
 	session({
 		store: new SQLiteStore({ db: "sessions.db", dir: "./prisma" }),
-		name: "__Host-sid", // __Host- prefix locks to HTTPS + root path
+		secret: process.env.SESSION_SECRET,
+		name: "sid",
 		resave: false,
 		saveUninitialized: false,
 		cookie: {

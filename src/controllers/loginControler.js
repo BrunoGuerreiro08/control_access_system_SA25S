@@ -1,10 +1,8 @@
+import "../lib/env.js";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 import prisma from "../lib/prisma.js";
-import jwt from "jsonwebtoken";
 import logger from "../lib/logger.js";
-
-dotenv.config();
+import passport from "../lib/passport.js";
 
 export const handleResponse = (res, status, message, data = null) => {
 	return res.status(status).json({
@@ -14,7 +12,7 @@ export const handleResponse = (res, status, message, data = null) => {
 	});
 };
 
-export const loginController = (req, res, next) => {
+export const loginControler = (req, res, next) => {
 	passport.authenticate("local", (err, user, info) => {
 		if (err) return next(err);
 
