@@ -144,3 +144,25 @@ Todos os eventos relevantes são registados com **pino** em formato JSON estrutu
 | Logout | `info` |
 
 ---
+
+## 🗄️ Configuração Segura do Banco de Dados
+
+### Proteção contra SQL Injection
+
+O projeto usa **Prisma ORM**, que envia todos os valores fornecidos pelo utilizador como
+parâmetros vinculados (*bound parameters*) ao driver SQLite — nunca como texto interpolado
+na query SQL. Isto torna a injeção SQL estruturalmente impossível através das queries ORM normais.
+
+Para os casos em que é necessária uma query raw, o projeto usa exclusivamente
+`prisma.$queryRaw` com template literals (sintaxe `` $queryRaw`...` ``), que parameteriza
+automaticamente qualquer valor interpolado com `${}`. O uso de `$queryRawUnsafe()` com
+input do utilizador está explicitamente proibido no código.
+
+### Prisma — boas práticas aplicadas
+
+| Prática | Implementação |
+|---|---|
+| Password nunca exposta | `select` explícito exclui o campo `password` em todas as queries de listagem |
+| Input do utilizador nunca interpolado em SQL | Uso exclusivo de Prisma ORM e `$queryRaw` com tagged templates |
+| Sessões persistidas em base de dados separada | `connect-sqlite3` usa `sessions.db` isolado do `dev.db` |
+| Credenciais fora do código | Todas as variáveis sensíveis via `.env` |
